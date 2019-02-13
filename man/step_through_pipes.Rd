@@ -10,19 +10,20 @@ step_through_pipes(expr)
 \item{expr}{Block of dplyr or other piped commands.}
 }
 \value{
-Result of evaluating `expr`.
+Result of evaluating \eqn{expr}.
 }
 \description{
 Display intermediate results of blocks of piped expressions.
 }
 \examples{
 library(tidyverse)
-   step_through_pipes({
+step_through_pipes({
    starwars \%>\%
       mutate(bmi=mass/((height/100)^2)) \%>\%
       select(name:mass, bmi) \%>\%
       filter(bmi<22) \%>\%
-      gather(feature, value)
+      gather(feature, value, -name) \%>\%
+      arrange(name, feature)
 })
 
 }

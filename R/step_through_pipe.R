@@ -1,12 +1,25 @@
 library(rlang)
 library(tidyverse)
 
+#' Make pretty printout of piped code block string.
+#'
+#' @param ptext string of pipe-separated commands.
+#'
+#' @return pretty version of code string.
+#'
 pprintp <- function(ptext) {
    ptext %>%
      str_replace_all("%>%", "%>%\n  ") %>%
      str_replace("%>%\n  ", "%>%")
 }
 
+#' Make a string of separator characters to use in print outs.
+#'
+#' @param char Character to use.
+#' @param line_length Number of characters in the string.
+#'
+#' @return Separator string.
+#'
 sepline <- function(char="-", line_length=60) {
   paste0(paste0(rep(char,line_length), collapse=""),"\n")
 }
@@ -16,7 +29,6 @@ sepline <- function(char="-", line_length=60) {
 #' @param expr Block of dplyr or other piped commands.
 #'
 #' @return Result of evaluating \eqn{expr}.
-#' @export
 #'
 #' @importFrom magrittr `%>%``
 #' @importFrom rlang eval
