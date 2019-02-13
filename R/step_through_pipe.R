@@ -7,6 +7,8 @@ library(tidyverse)
 #'
 #' @return pretty version of code string.
 #'
+#' @import stringr
+#' @import magrittr
 pprintp <- function(ptext) {
    ptext %>%
      str_replace_all("%>%", "%>%\n  ") %>%
@@ -20,6 +22,10 @@ pprintp <- function(ptext) {
 #'
 #' @return Separator string.
 #'
+#'
+#' @import stringr
+#' @import magrittr
+
 sepline <- function(char="-", line_length=60) {
   paste0(paste0(rep(char,line_length), collapse=""),"\n")
 }
