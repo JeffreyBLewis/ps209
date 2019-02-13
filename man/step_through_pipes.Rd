@@ -4,13 +4,13 @@
 \alias{step_through_pipes}
 \title{Display intermediate results of blocks of piped expressions.}
 \usage{
-step_through_pipes(expr)
+step_through_pipes(call_expression)
 }
 \arguments{
-\item{expr}{Block of dplyr or other piped commands.}
+\item{call_expression}{Block of dplyr or other piped commands.}
 }
 \value{
-Result of evaluating \eqn{expr}.
+Result of evaluating \code{expr}.
 }
 \description{
 Display intermediate results of blocks of piped expressions.
@@ -25,5 +25,6 @@ step_through_pipes({
       gather(feature, value, -name) \%>\%
       arrange(name, feature)
 })
+
 
 }

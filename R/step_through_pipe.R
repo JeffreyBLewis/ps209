@@ -1,13 +1,11 @@
-library(rlang)
-library(tidyverse)
-
 #' Make pretty printout of piped code block string.
 #'
 #' @param ptext string of pipe-separated commands.
 #'
 #' @return pretty version of code string.
 #'
-#' @import stringr, magrittr
+#' @importFrom magrittr %>%
+#' @importFrom stringr str_replace str_replace_all
 #'
 pprintp <- function(ptext) {
    ptext %>%
@@ -32,11 +30,14 @@ sepline <- function(char="-", line_length=60) {
 
 #' Display intermediate results of blocks of piped expressions.
 #'
-#' @param expr Block of dplyr or other piped commands.
+#' @param call_expression Block of dplyr or other piped commands.
 #'
 #' @return Result of evaluating \code{expr}.
 #'
-#' @import magrittr, rlang, stringr
+#' @importFrom rlang enexpr expr_text env
+#' @importFrom magrittr %>%
+#' @importFrom stringr str_split str_replace_all
+#' @importFrom utils head
 #'
 #' @export
 #'
@@ -51,23 +52,66 @@ sepline <- function(char="-", line_length=60) {
 #'       arrange(name, feature)
 #' })
 #'
-step_through_pipes <- function(expr) {
+#'
+step_through_pipes <- function(call_expression) {
+  # How long should pipe chunks be padded to?
+  max_chunk_length =
+    expr_text(enexpr(call_expression)) %>%
+    str_split("%>%") %>%
+    sapply(nchar) %>%
+    max() + 6
+
   cat("\nStepping through pipes:\n")
   le <- env(`%>%` = function(lhs, rhs) {
-                      pcall <- paste0(expr(lhs),
-                                " %>% ",
-                                deparse(substitute(rhs)),"\n")
-                      res <- eval(parse(text=pcall))
-                      pretty_pcall <- pprintp(pcall %>% str_replace_all("lhs","."))
-                      sepline_len <- max(sapply(str_split(pretty_pcall,"\\n"), nchar)) + 3
-                      cat(sepline("=", sepline_len))
-                      cat(pretty_pcall)
-                      cat(sepline("=", sepline_len))
-                      print(head(res))
-                      cat("\n")
-                      res
-                      })
-  res <- eval(enexpr(expr), le)
+    # Get desired string padding length
+    ref_env = parent.frame()
+    string_length = get("string_length", envir = ref_env)
+
+    # Produce header
+    current_call <- paste0("lhs %>% ", deparse(substitute(rhs)), "\n")
+    pretty_pcall <- pprintp(current_call %>% str_replace_all("lhs","."))
+
+    # Produce temp result
+    result <- tryCatch(
+      { eval(parse(text=current_call)) },
+      error = function(e) {
+        past_error = get("past_error", envir = ref_env)
+        if(past_error > 0)
+        {
+          return(NULL)
+        }
+
+        print_header(pretty_pcall, string_length)
+        print("Error in this step of the pipe chain. Error details:")
+        print(e)
+        assign("past_error", 1, envir = ref_env)
+        return(NULL)
+      })
+
+    if(is.null(result)) {
+      stop("Cannot complete pipe chain because of error.", call. = FALSE)
+    }
+
+    print_header(pretty_pcall, string_length)
+    print(head(result))
+    # Return result
+    cat("\n")
+    result
+  },
+  `string_length` = max_chunk_length,
+  `past_error` = 0
+  )
+  total_result <- eval(expr = enexpr(call_expression), envir = le)
   cat("Pipes completed!\n\n")
+  invisible(total_result)
 }
 
+#' Stub function which pretty-prints a call header
+#'
+#' @param call A character string representing a pipe call
+#' @param length A number indicating how long to pad the header to
+print_header <- function(call, length) {
+  cat(sepline("=", length))
+  cat(call)
+  cat(sepline("=", length))
+}
