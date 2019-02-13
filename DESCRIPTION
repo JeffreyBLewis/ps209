@@ -8,7 +8,7 @@ Authors@R: c(person("Jeffrey", "Lewis", role = c("aut", "cre"),
 Maintainer: Jeffrey B. Lewis <jblewis@sucla.edu>
 Description: Provides functions useful to students learning to use tidy data, 
     dplyr, tidytext, and other text-as-data-related programming tasks.
-Depends: R (>= 3.5.0), rlang, magrittr
+Depends: R (>= 3.5.0), rlang, magrittr, stringr, tidyverse
 License: MIT
 Encoding: UTF-8
 LazyData: true

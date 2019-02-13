@@ -7,12 +7,12 @@ library(tidyverse)
 #'
 #' @return pretty version of code string.
 #'
-#' @import stringr
-#' @import magrittr
+#' @import stringr, magrittr
+#'
 pprintp <- function(ptext) {
    ptext %>%
-     str_replace_all("%>%", "%>%\n  ") %>%
-     str_replace("%>%\n  ", "%>%")
+     stringr::str_replace_all("%>%", "%>%\n  ") %>%
+     stringr::str_replace("%>%\n  ", "%>%")
 }
 
 #' Make a string of separator characters to use in print outs.
@@ -25,7 +25,7 @@ pprintp <- function(ptext) {
 #'
 #' @import stringr
 #' @import magrittr
-
+#'
 sepline <- function(char="-", line_length=60) {
   paste0(paste0(rep(char,line_length), collapse=""),"\n")
 }
@@ -36,8 +36,7 @@ sepline <- function(char="-", line_length=60) {
 #'
 #' @return Result of evaluating \eqn{expr}.
 #'
-#' @importFrom magrittr `%>%``
-#' @importFrom rlang eval
+#' @import magrittr, rlang, stringr
 #'
 #' @examples
 #' library(tidyverse)
