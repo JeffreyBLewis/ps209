@@ -3,7 +3,8 @@ library(tidyverse)
 
 pprintp <- function(ptext) {
    ptext %>%
-     str_replace_all("%>%", "%>%\n  ")
+     str_replace_all("%>%", "%>%\n  ") %>%
+     str_replace("%>%\n  ", "%>%")
 }
 
 sepline <- function(char="-", line_length=60) {
@@ -21,13 +22,14 @@ sepline <- function(char="-", line_length=60) {
 #'
 #' @examples
 #' library(tidyverse)
-#'    step_through_pipes({
+#' step_through_pipes({
 #'    starwars %>%
 #'       mutate(bmi=mass/((height/100)^2)) %>%
 #'       select(name:mass, bmi) %>%
 #'       filter(bmi<22) %>%
-#'       gather(feature, value)
-#'})
+#'       gather(feature, value, -name) %>%
+#'       arrange(name, feature)
+#' })
 #'
 step_through_pipes <- function(expr) {
   cat("\nStepping through pipes:\n")
@@ -46,6 +48,6 @@ step_through_pipes <- function(expr) {
                       res
                       })
   res <- eval(enexpr(expr), le)
-  cat("Pipe completed!\n\n")
+  cat("Pipes completed!\n\n")
 }
 
