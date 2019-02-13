@@ -1,6 +1,6 @@
 Package: ps209
 Type: Package
-Title: An R package for UCLA Political Science students in Winter 209
+Title: An R package for UCLA Political Science students in Winter 2019
 Version: 0.1.0
 Author: Jeffrey B. Lewis [aut, cre]
 Authors@R: c(person("Jeffrey", "Lewis", role = c("aut", "cre"),
