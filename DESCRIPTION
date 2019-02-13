@@ -5,8 +5,8 @@ Version: 0.1.0
 Author: Jeffrey B. Lewis [aut, cre]
 Authors@R: c(person("Jeffrey", "Lewis", role = c("aut", "cre"),
                      email = "jblewis@ucla.edu"))
-Maintainer: The package maintainer <jblewis@sucla.edu>
-Description: Provides functions useful to student learning to use tidy data, 
+Maintainer: Jeffrey B. Lewis <jblewis@sucla.edu>
+Description: Provides functions useful to students learning to use tidy data, 
     dplyr, tidytext, and other text-as-data-related programming tasks.
 Depends: R (>= 3.5.0), rlang, magrittr
 License: MIT
