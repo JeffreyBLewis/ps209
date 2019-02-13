@@ -23,10 +23,9 @@ results in
 
 ```
 Stepping through pipes:
-=========================================
-. %>%
-   mutate(bmi = mass/((height/100)^2))
-=========================================
+===========================================
+. %>% mutate(bmi = mass/((height/100)^2))
+===========================================
 # A tibble: 6 x 14
   name  height  mass hair_color skin_color eye_color birth_year
   <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl>
@@ -40,10 +39,9 @@ Stepping through pipes:
 #   species <chr>, films <list>, vehicles <list>,
 #   starships <list>, bmi <dbl>
 
-============================
-. %>%
-   select(name:mass, bmi)
-============================
+===============================
+. %>% select(name:mass, bmi)
+===============================
 # A tibble: 6 x 4
   name           height  mass   bmi
   <chr>           <int> <dbl> <dbl>
@@ -54,10 +52,9 @@ Stepping through pipes:
 5 Leia Organa       150    49  21.8
 6 Owen Lars         178   120  37.9
 
-======================
-. %>%
-   filter(bmi < 22)
-======================
+=========================
+. %>% filter(bmi < 22)
+=========================
 # A tibble: 6 x 4
   name          height  mass   bmi
   <chr>          <int> <dbl> <dbl>
@@ -68,10 +65,9 @@ Stepping through pipes:
 5 Ayla Secura      178    55  17.4
 6 Ki-Adi-Mundi     198    82  20.9
 
-===================================
-. %>%
-   gather(feature, value, -name)
-===================================
+======================================
+. %>% gather(feature, value, -name)
+======================================
 # A tibble: 6 x 3
   name          feature value
   <chr>         <chr>   <dbl>
@@ -82,10 +78,9 @@ Stepping through pipes:
 5 Ayla Secura   height    178
 6 Ki-Adi-Mundi  height    198
 
-============================
-. %>%
-   arrange(name, feature)
-============================
+==========----==================
+. %>%  arrange(name, feature)
+================================
 # A tibble: 6 x 3
   name        feature value
   <chr>       <chr>   <dbl>
