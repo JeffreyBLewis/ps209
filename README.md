@@ -10,7 +10,7 @@ For example,
 
 ```{r}
 library(tidyverse)
-step_through_pipes({
+thin_character_dat <- step_through_pipes({
     starwars %>%
        mutate(bmi=mass/((height/100)^2)) %>%
        select(name:mass, bmi) %>%
