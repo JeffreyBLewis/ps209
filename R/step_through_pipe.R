@@ -34,9 +34,11 @@ sepline <- function(char="-", line_length=60) {
 #'
 #' @param expr Block of dplyr or other piped commands.
 #'
-#' @return Result of evaluating \eqn{expr}.
+#' @return Result of evaluating \code{expr}.
 #'
 #' @import magrittr, rlang, stringr
+#'
+#' @export
 #'
 #' @examples
 #' library(tidyverse)
