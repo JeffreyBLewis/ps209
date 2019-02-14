@@ -4,9 +4,9 @@ An R package for ps209 students
 Provides functions useful for students of UCLA Political Science 209 in Winter 2019.  At the moment, the package 
 provides only one function, `step_through_pipes`.  The purpose of `step_through_pipes` is to provide a convenient way to 
 see the head of the result of each intermediate step in a block of piped expressions as might be constructed when manipulating 
-data with `dplyr`.  The code is still being perfected and somtimes it will fail when faced with complex pipes that are difficult to parse.
+data with `dplyr`.
 
-here is an example of `step_through_pipes` in action,
+Here is an example of `step_through_pipes` in action,
 
 ```{r}
 library(tidyverse)
@@ -78,7 +78,7 @@ Stepping through pipes:
 5 Ayla Secura   height    178
 6 Ki-Adi-Mundi  height    198
 
-==========----==================
+================================
 . %>%  arrange(name, feature)
 ================================
 # A tibble: 6 x 3
