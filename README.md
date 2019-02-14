@@ -10,7 +10,7 @@ data with `dplyr`.
 
 Here is an example of `step_through_pipes` in action,
 
-```{r}
+```r
 library(tidyverse)
 thin_character_dat <- step_through_pipes({
     starwars %>%
@@ -99,7 +99,7 @@ Pipes completed!
 ### Installation
 
 Install from github with:
-```{r}
+```r
 # install.packages("devtools")
 devtools::install_github("jeffreyblewis/ps209")
 ```
