@@ -55,11 +55,12 @@ sepline <- function(char="-", line_length=60) {
 #'
 step_through_pipes <- function(call_expression) {
   # How long should pipe chunks be padded to?
-  max_chunk_length =
+  max_chunk_length <-
     expr_text(enexpr(call_expression)) %>%
     str_split("%>%") %>%
     sapply(nchar) %>%
     max() + 6
+  max_chunk_length <- ifelse(max_chunk_length > 100, 100, max_chunk_length)
 
   cat("\nStepping through pipes:\n")
   le <- env(`%>%` = function(lhs, rhs) {
@@ -67,8 +68,10 @@ step_through_pipes <- function(call_expression) {
     ref_env = parent.frame()
     string_length = get("string_length", envir = ref_env)
 
+    rhs_text <- str_replace_all(paste0(deparse(substitute(rhs)), collapse=""),"\\s+"," ")
+
     # Produce header
-    current_call <- paste0("lhs %>% ", deparse(substitute(rhs)), "\n")
+    current_call <- paste0("lhs %>% ", rhs_text, "\n")
     pretty_pcall <- pprintp(current_call %>% str_replace_all("lhs","."))
 
     # Produce temp result
