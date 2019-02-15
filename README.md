@@ -95,6 +95,7 @@ Stepping through pipes:
 
 Pipes completed!
 ```
+(Note this `dyplyr` example is borrowed with some modification from https://github.com/tidyverse/dplyr.)
 
 ### Installation
 
@@ -103,3 +104,4 @@ Install from github with:
 # install.packages("devtools")
 devtools::install_github("jeffreyblewis/ps209")
 ```
+
