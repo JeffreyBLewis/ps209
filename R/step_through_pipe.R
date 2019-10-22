@@ -13,19 +13,19 @@ pprintp <- function(ptext) {
      stringr::str_replace("%>%\n  ", "%>%")
 }
 
-#' Make a string of separator characters to use in print outs.
+#' Output a string of separator characters for use in print outs.
 #'
 #' @param char Character to use.
 #' @param line_length Number of characters in the string.
 #'
-#' @return Separator string.
+#' @return None
 #'
 #'
 #' @import stringr
 #' @import magrittr
 #'
-sepline <- function(char="-", line_length=60) {
-  paste0(paste0(rep(char,line_length), collapse=""),"\n")
+print_sepline <- function(char="-", line_length=60) {
+  cat(rep(char,line_length), "\n", sep="")
 }
 
 #' Display intermediate results of blocks of piped expressions.
@@ -35,7 +35,7 @@ sepline <- function(char="-", line_length=60) {
 #' @return Result of evaluating \code{expr}.
 #'
 #' @importFrom rlang enexpr expr_text env
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% add extract2
 #' @importFrom stringr str_split str_replace_all
 #' @importFrom utils head
 #'
@@ -58,9 +58,11 @@ step_through_pipes <- function(call_expression) {
   max_chunk_length <-
     expr_text(enexpr(call_expression)) %>%
     str_split("%>%") %>%
-    sapply(nchar) %>%
-    max() + 6
-  max_chunk_length <- ifelse(max_chunk_length > 100, 100, max_chunk_length)
+    extract2(1) %>%
+    nchar %>%
+    max() %>%
+    add(6) %>%
+    min(getOption("width", 100))
 
   cat("\nStepping through pipes:\n")
   le <- env(`%>%` = function(lhs, rhs) {
@@ -112,9 +114,9 @@ step_through_pipes <- function(call_expression) {
 #' Stub function which pretty-prints a call header
 #'
 #' @param call A character string representing a pipe call
-#' @param length A number indicating how long to pad the header to
-print_header <- function(call, length) {
-  cat(sepline("=", length))
+#' @param width A number indicating how long to pad the header to
+print_header <- function(call, width) {
+  print_sepline("=", width)
   cat(call)
-  cat(sepline("=", length))
+  print_sepline("=", width)
 }
