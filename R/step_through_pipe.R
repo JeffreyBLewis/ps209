@@ -35,7 +35,7 @@ print_sepline <- function(char="-", line_length=60) {
 #' @return Result of evaluating \code{expr}.
 #'
 #' @importFrom rlang enexpr expr_text env
-#' @importFrom magrittr %>% add
+#' @importFrom magrittr %>% add extract2
 #' @importFrom stringr str_split str_replace_all
 #' @importFrom utils head
 #'
@@ -58,7 +58,8 @@ step_through_pipes <- function(call_expression) {
   max_chunk_length <-
     expr_text(enexpr(call_expression)) %>%
     str_split("%>%") %>%
-    sapply(nchar) %>%
+    extract2(1) %>%
+    nchar %>%
     max() %>%
     add(6) %>%
     min(getOption("width", 100))
