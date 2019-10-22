@@ -4,12 +4,12 @@
 \alias{print_header}
 \title{Stub function which pretty-prints a call header}
 \usage{
-print_header(call, length)
+print_header(call, width)
 }
 \arguments{
 \item{call}{A character string representing a pipe call}
 
-\item{length}{A number indicating how long to pad the header to}
+\item{width}{A number indicating how long to pad the header to}
 }
 \description{
 Stub function which pretty-prints a call header
