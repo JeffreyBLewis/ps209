@@ -95,7 +95,7 @@ Stepping through pipes:
 
 Pipes completed!
 ```
-(Note this `dyplyr` example is borrowed with some modification from https://github.com/tidyverse/dplyr.)
+(Note this `dplyr` example is borrowed with some modification from https://github.com/tidyverse/dplyr.)
 
 ### Installation
 
