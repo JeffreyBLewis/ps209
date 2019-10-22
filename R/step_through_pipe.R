@@ -25,7 +25,7 @@ pprintp <- function(ptext) {
 #' @import magrittr
 #'
 print_sepline <- function(char="-", line_length=60) {
-  cat(rep(char,line_length), "\n", collapse="")
+  cat(rep(char,line_length), "\n", sep="")
 }
 
 #' Display intermediate results of blocks of piped expressions.
